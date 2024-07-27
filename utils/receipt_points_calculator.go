@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"math"
 	"receipt_processor/models"
 	"strconv"
@@ -68,13 +69,14 @@ func (t TwoItemsRule) CalculatePoints(r models.Receipt) int {
 type TrimmedLengthRule struct{}
 
 // If the trimmed length of the item description is a multiple of 3, multiply the price by 0.2 and round up to the nearest integer. The result is the number of points earned.
+// originally using math.round but everything needs rouding up so ceil
 func (t TrimmedLengthRule) CalculatePoints(r models.Receipt) int {
 	points := 0
 	for _, v := range r.Items {
 		trimmedDesc := strings.Trim(v.ShortDescription, " ")
 		if len(trimmedDesc)%3 == 0 {
 			floatPrice, _ := strconv.ParseFloat(v.Price, 64)
-			points += int(math.Round(floatPrice * 0.2))
+			points += int(math.Ceil(floatPrice * 0.2))
 		}
 	}
 	return points
@@ -98,8 +100,9 @@ type TimeOfPurchaseBetween2and4Rule struct{}
 
 // 10 points if the time of purchase is after 2:00pm and before 4:00pm.
 func (t TimeOfPurchaseBetween2and4Rule) CalculatePoints(r models.Receipt) int {
-	purchaseTime, err := time.Parse(time.RFC1123, r.PurchaseTime)
+	purchaseTime, err := time.Parse(time.DateTime, r.PurchaseDate+" "+r.PurchaseTime+":00")
 	if err != nil {
+		fmt.Println(err)
 		return 0
 	}
 	twoPmDate := time.Date(purchaseTime.Year(), purchaseTime.Month(), purchaseTime.Day(), 14, 0, 0, 0, time.UTC)

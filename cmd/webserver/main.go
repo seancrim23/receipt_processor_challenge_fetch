@@ -21,6 +21,6 @@ func main() {
 	}
 
 	if err := http.ListenAndServe(":8080", s); err != nil {
-		log.Fatalf("could not listen on port %d %v", "8080", err)
+		log.Fatalf("could not listen on port %d %v", 8080, err)
 	}
 }

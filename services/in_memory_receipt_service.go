@@ -17,20 +17,18 @@ func NewInMemoryReceiptService() (*InMemoryReceiptService, error) {
 	return &InMemoryReceiptService{receiptMap: receiptMap}, nil
 }
 
-func (i *InMemoryReceiptService) ProcessReceipt(receipt models.Receipt) (*models.Receipt, error) {
+func (i *InMemoryReceiptService) ProcessReceipt(receipt models.Receipt) (string, error) {
 	newReceiptId := uuid.New()
 	receipt.Id = newReceiptId.String()
 	i.receiptMap[newReceiptId.String()] = receipt
-	return &receipt, nil
+	return receipt.Id, nil
 }
 
-// what to return?
 func (i *InMemoryReceiptService) GetReceiptPoints(id string) (int, error) {
-	receipt, ok := i.receiptMap[id]
-	if !ok {
+	receipt, receiptExists := i.receiptMap[id]
+	if !receiptExists {
 		return 0, errors.New("error getting receipt")
 	}
-	receiptPointsCalculator := utils.NewReceiptPointsCalculator()
-	points := receiptPointsCalculator.GenerateReceiptPoints(receipt)
+	points := utils.NewReceiptPointsCalculator().GenerateReceiptPoints(receipt)
 	return points, nil
 }

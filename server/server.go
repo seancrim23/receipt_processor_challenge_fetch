@@ -80,7 +80,7 @@ func (h *ReceiptServer) processReceipt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newReceipt, err := h.service.ProcessReceipt(receipt)
+	newReceiptId, err := h.service.ProcessReceipt(receipt)
 	if err != nil {
 		code = 500
 		fmt.Println(err)
@@ -88,7 +88,7 @@ func (h *ReceiptServer) processReceipt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.RespondWithJSON(w, code, newReceipt)
+	utils.RespondWithJSON(w, code, map[string]string{"id": newReceiptId})
 }
 
 func (h *ReceiptServer) getReceiptPoints(w http.ResponseWriter, r *http.Request) {
@@ -111,5 +111,5 @@ func (h *ReceiptServer) getReceiptPoints(w http.ResponseWriter, r *http.Request)
 	}
 
 	//make this into json of {"points": points}
-	utils.RespondWithJSON(w, code, points)
+	utils.RespondWithJSON(w, code, map[string]int{"points": points})
 }

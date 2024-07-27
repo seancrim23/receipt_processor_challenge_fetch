@@ -1,5 +1,7 @@
 package models
 
+import "strconv"
+
 /*
 	{
   "retailer": "Target",
@@ -34,6 +36,15 @@ type Receipt struct {
 	PurchaseTime string
 	Items        []Item
 	Total        string
+}
+
+func (r *Receipt) CalculateTotal() string {
+	total := 0.00
+	for _, v := range r.Items {
+		priceFloat, _ := strconv.ParseFloat(v.Price, 64)
+		total += priceFloat
+	}
+	return strconv.FormatFloat(total, 'f', -1, 64)
 }
 
 type Item struct {
