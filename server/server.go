@@ -20,25 +20,6 @@ type ReceiptServer struct {
 	http.Handler
 }
 
-/*
-Endpoint: Process Receipts
-Path: /receipts/process
-Method: POST
-Payload: Receipt JSON
-Response: JSON containing an id for the receipt.
-
-Endpoint: Get Points
-Path: /receipts/{id}/points
-Method: GET
-Response: A JSON object containing the number of points awarded.
-A simple Getter endpoint that looks up the receipt by the ID and returns an object specifying the points awarded.
-
-Example Response:
-
-{ "points": 32 }
-
-*/
-
 func NewReceiptServer(service services.ReceiptService) (*ReceiptServer, error) {
 	h := new(ReceiptServer)
 

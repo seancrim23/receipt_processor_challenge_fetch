@@ -11,7 +11,7 @@ This solution is written entirely in Go and can be run locally on your machine.
 4. Verify that you are now in `<CLONED_REPOSITORY_LOCATION>/cmd/webserver`
 5. In your command line, run the command `go run main.go`
    - There may be a pop up asking to allow the service to make a connection. Click Allow.
-6. If there are no errors, the service should be running successfully on your Local Host.
+6. If there are no errors, the service should be running successfully on your Localhost.
 7. Now you can interact with the service:
    - There are many different tools that API calls can be made to interact with the service. I personally made use of the cURL tool which can be downloaded from [here](https://curl.se/download.html). Some assistance on successfully installing cURL can be found [here](https://developer.zendesk.com/documentation/api-basics/getting-started/installing-and-using-curl/#installing-curl)
    - To save a bit of time, I have included example cURL commands that I put together using the example data that was provided in the code challenge repository.

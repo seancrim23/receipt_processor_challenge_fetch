@@ -42,10 +42,6 @@ var testReceipt1 = models.Receipt{
 	Total: "35.35",
 }
 
-/*
-GetShowsFunc   func(showQueryFilters map[string]string) (*[]models.Show, error)
-GetShowFunc    func(id string) (*models.Show, error)
-*/
 type StubReceiptService struct {
 	ProcessReceiptFunc   func(models.Receipt) (string, error)
 	GetReceiptPointsFunc func(string) (int, error)
