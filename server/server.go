@@ -80,7 +80,7 @@ func (h *ReceiptServer) processReceipt(w http.ResponseWriter, r *http.Request) {
 		utils.RespondWithError(w, code, errors.New(utils.INVALID_RECEIPT).Error())
 		return
 	}
-	if errs := validator.Validate(receipt); errs != nil {
+	if err = validator.Validate(receipt); err != nil {
 		code = 400
 		fmt.Println(err)
 		utils.RespondWithError(w, code, errors.New(utils.INVALID_RECEIPT).Error())
