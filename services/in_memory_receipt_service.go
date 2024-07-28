@@ -27,7 +27,7 @@ func (i *InMemoryReceiptService) ProcessReceipt(receipt models.Receipt) (string,
 func (i *InMemoryReceiptService) GetReceiptPoints(id string) (int, error) {
 	receipt, receiptExists := i.receiptMap[id]
 	if !receiptExists {
-		return 0, errors.New("error getting receipt")
+		return 0, errors.New(utils.NO_RECEIPT)
 	}
 	points := utils.NewReceiptPointsCalculator().GenerateReceiptPoints(receipt)
 	return points, nil

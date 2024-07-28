@@ -58,7 +58,7 @@ type TwoItemsRule struct{}
 // 5 points for every two items on the receipt.
 func (t TwoItemsRule) CalculatePoints(r models.Receipt) int {
 	points := 0
-	for i, _ := range r.Items {
+	for i := range r.Items {
 		if i%2 != 0 {
 			points += 5
 		}
